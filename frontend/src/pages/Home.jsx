@@ -42,6 +42,8 @@ const Home = () => {
 
   return (
     <>
+    <Hero />
+    
       {/* ⭐ Pass search + setSearch + products */}
       <Header 
         search={search}
@@ -49,7 +51,7 @@ const Home = () => {
         products={products}
       />
 
-      <Hero />
+      
       
       <Filters 
         category={category}
