@@ -1,7 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Product = require("./models/Product");
-const connectDB = require("./config/db");
 
 const products = [
   {
@@ -90,17 +89,20 @@ const products = [
   }
 ];
 
-const seedData = async () => {
+async function seed() {
   try {
-    await connectDB();
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("MongoDB Connected");
+
     await Product.deleteMany();
     await Product.insertMany(products);
+
     console.log("Sample products inserted");
     process.exit(0);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
-};
+}
 
-seedData();
+seed();
