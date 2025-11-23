@@ -1,0 +1,20 @@
+# Ignore Node modules in both frontend and backend
+frontend/node_modules/
+backend/node_modules/
+
+# Optional but recommended
+.env
+frontend/.env
+backend/.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files (optional)
+frontend/dist/
+backend/dist/
+frontend/build/
+backend/build/
