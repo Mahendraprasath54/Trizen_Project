@@ -34,22 +34,9 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
   return (
     <div style={styles.heroContainer}>
       <div style={styles.sliderWrapper}>
-        {/* Slides */}
         {slides.map((slide, index) => (
           <div
             key={slide.id}
@@ -57,22 +44,22 @@ const Hero = () => {
               ...styles.slide,
               background: slide.bg,
               opacity: currentSlide === index ? 1 : 0,
-              zIndex: currentSlide === index ? 1 : 0,
             }}
           >
-            <div style={styles.slideContent}>
-              <div style={styles.textContent}>
-                <h1 style={styles.title}>{slide.title}</h1>
-                <p style={styles.subtitle}>{slide.subtitle}</p>
+            <div className="slide-content" style={styles.slideContent}>
+              <div className="text-section" style={styles.textContent}>
+                <h1 className="hero-title" style={styles.title}>{slide.title}</h1>
+                <p className="hero-sub" style={styles.subtitle}>{slide.subtitle}</p>
                 <button style={styles.shopNowBtn}>
-                  Shop Now
-                  <span style={styles.arrow}>→</span>
+                  Shop Now <span style={styles.arrow}>→</span>
                 </button>
               </div>
-              <div style={styles.imageContent}>
-                <img 
-                  src={slide.image} 
-                  alt={slide.title} 
+
+              <div className="image-section" style={styles.imageContent}>
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="hero-img"
                   style={styles.slideImage}
                 />
               </div>
@@ -81,18 +68,15 @@ const Hero = () => {
         ))}
 
         <button
-          onClick={prevSlide}
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
           style={{ ...styles.navButton, left: "20px" }}
-          onMouseEnter={(e) => e.target.style.background = "rgba(255,255,255,0.3)"}
-          onMouseLeave={(e) => e.target.style.background = "rgba(255,255,255,0.2)"}
         >
           ‹
         </button>
+
         <button
-          onClick={nextSlide}
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
           style={{ ...styles.navButton, right: "20px" }}
-          onMouseEnter={(e) => e.target.style.background = "rgba(255,255,255,0.3)"}
-          onMouseLeave={(e) => e.target.style.background = "rgba(255,255,255,0.2)"}
         >
           ›
         </button>
@@ -101,39 +85,92 @@ const Hero = () => {
           {slides.map((_, index) => (
             <button
               key={index}
-              onClick={() => goToSlide(index)}
+              onClick={() => setCurrentSlide(index)}
               style={{
                 ...styles.dot,
                 background: currentSlide === index ? "#fff" : "rgba(255,255,255,0.5)",
-                width: currentSlide === index ? "30px" : "10px",
               }}
             />
           ))}
         </div>
       </div>
 
-      <div style={styles.featuresContainer}>
-        <div style={styles.featureCard}>
-          <div style={styles.featureIcon}>🚚</div>
-          <h3 style={styles.featureTitle}>Free Delivery</h3>
-          <p style={styles.featureText}>On orders over $50</p>
-        </div>
-        <div style={styles.featureCard}>
-          <div style={styles.featureIcon}>💳</div>
-          <h3 style={styles.featureTitle}>Secure Payment</h3>
-          <p style={styles.featureText}>100% secure transactions</p>
-        </div>
-        <div style={styles.featureCard}>
-          <div style={styles.featureIcon}>🔄</div>
-          <h3 style={styles.featureTitle}>Easy Returns</h3>
-          <p style={styles.featureText}>30-day return policy</p>
-        </div>
-        <div style={styles.featureCard}>
-          <div style={styles.featureIcon}>⭐</div>
-          <h3 style={styles.featureTitle}>Best Quality</h3>
-          <p style={styles.featureText}>Premium products</p>
-        </div>
+      <div className="feature-wrapper" style={styles.featuresContainer}>
+        {[
+          ["🚚", "Free Delivery"],
+          ["💳", "Secure Payment"],
+          ["🔄", "Easy Returns"],
+          ["⭐", "Best Quality"],
+        ].map(([icon, title]) => (
+          <div key={title} className="feature-card" style={styles.featureCard}>
+            <div style={styles.featureIcon}>{icon}</div>
+            <h3 style={styles.featureTitle}>{title}</h3>
+          </div>
+        ))}
       </div>
+
+      <style>
+        {`
+        @media (max-width: 600px) {
+          .slide-content {
+            flex-direction: column !important;
+            padding: 15px !important;
+            gap: 10px !important;
+            text-align: center !important;
+          }
+
+          .text-section {
+            order: 2 !important;
+          }
+
+          .image-section {
+            order: 1 !important;
+          }
+
+          .hero-img {
+            width: 90% !important;
+            height: 200px !important;
+          }
+
+          .hero-title {
+            font-size: 22px !important;
+          }
+
+          .hero-sub {
+            font-size: 14px !important;
+          }
+
+          .feature-wrapper {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+
+          .feature-card {
+            padding: 12px !important;
+          }
+        }
+
+        @media (max-width: 900px) and (min-width: 601px) {
+          .slide-content {
+            padding: 20px !important;
+            gap: 20px !important;
+          }
+
+          .hero-title {
+            font-size: 38px !important;
+          }
+
+          .hero-sub {
+            font-size: 18px !important;
+          }
+
+          .hero-img {
+            max-width: 380px !important;
+            height: 260px !important;
+          }
+        }
+      `}
+      </style>
     </div>
   );
 };
@@ -148,12 +185,9 @@ const styles = {
     width: "100%",
     height: "500px",
     overflow: "hidden",
-    borderRadius: "0",
   },
   slide: {
     position: "absolute",
-    top: 0,
-    left: 0,
     width: "100%",
     height: "100%",
     transition: "opacity 0.8s ease-in-out",
@@ -172,15 +206,12 @@ const styles = {
   },
   textContent: {
     flex: 1,
-    textAlign: "left",
     color: "#fff",
-    animation: "fadeInLeft 0.8s ease-out",
   },
   imageContent: {
     flex: 1,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
   },
   slideImage: {
     width: "100%",
@@ -194,128 +225,66 @@ const styles = {
     fontSize: "56px",
     fontWeight: "800",
     marginBottom: "20px",
-    lineHeight: "1.2",
-    textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
   },
   subtitle: {
     fontSize: "22px",
     marginBottom: "30px",
-    opacity: 0.95,
-    fontWeight: "400",
   },
   shopNowBtn: {
     padding: "16px 40px",
     fontSize: "18px",
-    fontWeight: "600",
-    background: "#fff",
-    color: "#333",
-    border: "none",
     borderRadius: "50px",
+    border: "none",
+    background: "#fff",
     cursor: "pointer",
-    transition: "all 0.3s ease",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
     display: "inline-flex",
     alignItems: "center",
-    gap: "10px",
-  },
-  arrow: {
-    fontSize: "20px",
-    transition: "transform 0.3s ease",
+    gap: "8px",
   },
   navButton: {
     position: "absolute",
     top: "50%",
-    transform: "translateY(-50%)",
-    background: "rgba(255,255,255,0.2)",
-    color: "#fff",
-    border: "none",
     width: "50px",
     height: "50px",
+    background: "rgba(255,255,255,0.2)",
     borderRadius: "50%",
+    border: "none",
     fontSize: "30px",
     cursor: "pointer",
-    transition: "all 0.3s ease",
+    color: "#fff",
     zIndex: 10,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backdropFilter: "blur(5px)",
   },
   dotsContainer: {
     position: "absolute",
-    bottom: "30px",
+    bottom: "20px",
     left: "50%",
     transform: "translateX(-50%)",
     display: "flex",
     gap: "10px",
-    zIndex: 10,
   },
   dot: {
     width: "10px",
     height: "10px",
     borderRadius: "5px",
     border: "none",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
   },
   featuresContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateColumns: "repeat(4, 1fr)",
     gap: "20px",
     maxWidth: "1200px",
     margin: "40px auto",
-    padding: "20px 20px 20px 20px",
+    padding: "20ppx 20px",
   },
   featureCard: {
     background: "#fff",
-    padding: "30px 30px",
+    padding: "25px",
     borderRadius: "12px",
     textAlign: "center",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    cursor: "pointer",
+    boxShadow: "0px 2px 6px rgba(0,0,0,0.1)",
   },
-  featureIcon: {
-    fontSize: "48px",
-    marginBottom: "15px",
-  },
-  featureTitle: {
-    fontSize: "18px",
-    fontWeight: "700",
-    color: "#333",
-    marginBottom: "8px",
-  },
-  featureText: {
-    fontSize: "14px",
-    color: "#666",
-    margin: 0,
-  },
+  featureIcon: { fontSize: "40px" },
+  featureTitle: { fontSize: "16px", marginTop: "8px" },
 };
-
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    button:hover .arrow {
-      transform: translateX(5px);
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    }
-  `;
-  document.head.appendChild(style);
-}
 
 export default Hero;

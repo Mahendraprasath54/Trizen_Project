@@ -51,6 +51,19 @@ const ProductsGrid = ({ products }) => {
           transform: scale(1.05);
           box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+          .products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+}
       `}</style>
     </div>
   );

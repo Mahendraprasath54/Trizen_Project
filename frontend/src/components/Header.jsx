@@ -26,12 +26,11 @@ const Header = ({ search = "", setSearch, products = [] }) => {
   return (
     <header style={styles.header}>
       <div style={styles.container}>
-        {/* Company Logo/Name */}
+       
         <div style={styles.logo}>
           <h1 style={styles.logoText}>Trizen</h1>
         </div>
 
-        {/* Search Bar */}
         <div style={styles.searchWrapper}>
           <input
             type="text"
@@ -63,7 +62,7 @@ const Header = ({ search = "", setSearch, products = [] }) => {
 const styles = {
   header: {
     padding: "20px",
-    backgroundColor: "#172337", // 🔥 FIXED
+    backgroundColor: "#172337",
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
   },
   container: {
