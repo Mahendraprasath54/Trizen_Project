@@ -268,7 +268,7 @@ const styles = {
   },
   featureCard: {
     background: "#fff",
-    padding: "30px 20px",
+    padding: "30px 30px",
     borderRadius: "12px",
     textAlign: "center",
     boxShadow: "0 2px 10px rgba(0,0,0,0.1)",

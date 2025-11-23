@@ -63,7 +63,7 @@ const Header = ({ search = "", setSearch, products = [] }) => {
 const styles = {
   header: {
     padding: "20px",
-    background: "#fff",
+    backgroundColor: "#172337", // 🔥 FIXED
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
   },
   container: {
