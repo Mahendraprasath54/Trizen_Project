@@ -25,27 +25,37 @@ const Header = ({ search = "", setSearch, products = [] }) => {
 
   return (
     <header style={styles.header}>
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={styles.search}
-      />
-
-      {suggestions.length > 0 && (
-        <div style={styles.dropdown}>
-          {suggestions.map((item) => (
-            <div
-              key={item._id}
-              onClick={() => handleSelect(item.name)}
-              style={styles.suggestion}
-            >
-              {item.name}
-            </div>
-          ))}
+      <div style={styles.container}>
+        {/* Company Logo/Name */}
+        <div style={styles.logo}>
+          <h1 style={styles.logoText}>Trizen</h1>
         </div>
-      )}
+
+        {/* Search Bar */}
+        <div style={styles.searchWrapper}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={styles.search}
+          />
+
+          {suggestions.length > 0 && (
+            <div style={styles.dropdown}>
+              {suggestions.map((item) => (
+                <div
+                  key={item._id}
+                  onClick={() => handleSelect(item.name)}
+                  style={styles.suggestion}
+                >
+                  {item.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </header>
   );
 };
@@ -54,8 +64,29 @@ const styles = {
   header: {
     padding: "20px",
     background: "#fff",
-    position: "relative",
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+  },
+  container: {
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+    maxWidth: "1200px",
+    margin: "0 auto",
+  },
+  logo: {
+    flexShrink: 0,
+  },
+  logoText: {
+    fontSize: "60px",
+    fontWeight: "bold",
+    color: "#2874f0",
+    margin: 0,
+    paddingLeft: "0px"
+
+  },
+  searchWrapper: {
+    flex: 1,
+    position: "relative",
   },
   search: {
     width: "100%",
@@ -66,9 +97,9 @@ const styles = {
   },
   dropdown: {
     position: "absolute",
-    top: "70px",
-    left: "20px",
-    right: "20px",
+    top: "55px",
+    left: "0",
+    right: "0",
     background: "#fff",
     borderRadius: "6px",
     boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
@@ -77,6 +108,7 @@ const styles = {
   suggestion: {
     padding: "10px",
     cursor: "pointer",
+    borderBottom: "1px solid #f0f0f0",
   },
 };
 
