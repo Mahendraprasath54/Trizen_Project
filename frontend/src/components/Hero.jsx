@@ -261,6 +261,7 @@ const styles = {
     transform: "translateX(-50%)",
     display: "flex",
     gap: "10px",
+    
   },
   dot: {
     width: "10px",
@@ -275,6 +276,8 @@ const styles = {
     maxWidth: "1200px",
     margin: "40px auto",
     padding: "20ppx 20px",
+    
+
   },
   featureCard: {
     background: "#fff",
